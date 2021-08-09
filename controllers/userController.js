@@ -21,10 +21,13 @@ const getUser = async (req, res = response) => {
             .limit(Number(limit))
     ]);
 
+    const authenticatedUser = req.user;
+
     res.json({
         msg: 'GET (controller)',
         "total": totalAmount,
-        users
+        users,
+        authenticatedUser,
     });
 }
 
@@ -75,9 +78,12 @@ const deleteUser = async (req, res = response) => {
     // soft delete
     const user = await User.findByIdAndUpdate(id, {state : false});
 
+    const authenticatedUser = req.user;
+
     res.json({
         msg: 'DELETE (controller)',
-        user
+        user,
+        authenticatedUser
     });
 }
 

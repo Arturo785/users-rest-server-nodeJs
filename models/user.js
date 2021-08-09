@@ -10,7 +10,7 @@ const UserSchema = Schema({
     email: {
         type: String,
         required: [true, "The email is required"],
-        unique : true
+        unique: true
     },
     password: {
         type: String,
@@ -36,8 +36,9 @@ const UserSchema = Schema({
 
 // overrides the default behaviour
 //we make this to exclude the password and the __v
-UserSchema.methods.toJSON = function() {
-    const {__v, password, ...user} = this.toObject(); // gets 2 speficic and the rest as user
+UserSchema.methods.toJSON = function () {
+    const { __v, password, _id, ...user } = this.toObject(); // gets 2 speficic and the rest as user
+    user.uid = _id; // changes how it looks
     return user;
 }
 
