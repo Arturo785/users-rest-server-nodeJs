@@ -43,8 +43,8 @@ router.delete('/:id', [
     validateRole('ADMIN_ROLE'),
     check('id', 'Not a valid id').isMongoId(),
     check('id').custom(userExistsValidator),
-    validateFields,
-], deleteUser);
+    validateFields, // this way we pass the reference and all params to the func
+], deleteUser);  // this way we pass the reference and all params to the func
 
 
 

@@ -11,13 +11,13 @@ const router = Router();
 router.post('/login',[
     check('email', 'The email is not valid').isEmail(),
     validateFields,
-], login);
+], login); // this way we pass the reference and all params to the func
 
 
 router.post('/google',[
     check('id_token', 'The token was not provided').notEmpty(),
     validateFields,
-], loginGoogle);
+], loginGoogle); // this way we pass the reference and all params to the func
 
 
 

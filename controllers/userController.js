@@ -76,7 +76,7 @@ const deleteUser = async (req, res = response) => {
     //const user = await User.findByIdAndDelete(id);
 
     // soft delete
-    const user = await User.findByIdAndUpdate(id, {state : false});
+    const user = await User.findByIdAndUpdate(id, { state: false });
 
     const authenticatedUser = req.user;
 
@@ -89,7 +89,7 @@ const deleteUser = async (req, res = response) => {
 
 
 module.exports = {
-    getUser,
+    getUser, // this way we pass the reference and all params to the func
     postUser,
     putUser,
     deleteUser,
