@@ -1,5 +1,5 @@
 const { response } = require('express');
-const Product = require('../models/Product');
+const Product = require('../models/product');
 
 
 
@@ -41,7 +41,7 @@ const getProduct = async (req, res = response) => {
 const postProduct = async (req, res = response) => {
 
     const name = req.body.name.toUpperCase();
-    const {price, description, categorie} = req.body;
+    const { state, user, ...body } = req.body;
 
     const productDB = await Product.findOne({ name });
 
@@ -54,9 +54,7 @@ const postProduct = async (req, res = response) => {
     const data = {
         name,
         user: req.user._id,
-        price,
-        description,
-        categorie
+        ...body
     }
 
     const productToSave = new Product(data);
@@ -87,7 +85,7 @@ const putProduct = async (req, res = response) => {
 
 
 const deleteProduct = async (req, res = response) => {
-    
+
     const { id } = req.params;
 
     const productToDelete = await Product.findByIdAndUpdate(id, { state: false });

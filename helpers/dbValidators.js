@@ -1,6 +1,7 @@
 const Categorie = require('../models/categorie');
 const Role = require('../models/role');
 const User = require('../models/user');
+const Product = require('../models/product');
 
 
 
@@ -35,9 +36,18 @@ const categorieExistsValidator = async (id) => {
     }
 }
 
+const productExistsValidator = async (id) => {
+    const exists = await Product.findById(id); // comes from mongo implementation not from our instance
+
+    if (!exists) {
+        throw new Error(`The id: does not exists`) // custom error catched in the middleware
+    }
+}
+
 module.exports = {
     roleValidator,
     emailValidator,
     userExistsValidator,
     categorieExistsValidator,
+    productExistsValidator,
 }
