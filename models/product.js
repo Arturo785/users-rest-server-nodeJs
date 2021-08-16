@@ -27,13 +27,14 @@ const ProductSchema = Schema({
     },
     description: { type: String },
     available: { type: Boolean, defult: true },
+    image: { type: String },
 });
 
 
-ProductSchema.methods.toJSON = function() {
-    const { __v, state, ...data  } = this.toObject();
+ProductSchema.methods.toJSON = function () {
+    const { __v, state, ...data } = this.toObject();
     return data;
 }
 
 
-module.exports = model( 'Product', ProductSchema );
+module.exports = model('Product', ProductSchema);
