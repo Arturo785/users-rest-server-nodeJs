@@ -27,7 +27,7 @@ const uploadFileHelper = (files, validExtensions = [
                 return reject(err);
             }
 
-            resolve(uploadPath);
+            resolve(tempFile);
         });
 
     });
