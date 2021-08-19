@@ -21,10 +21,13 @@ const getUser = async (req, res = response) => {
             .limit(Number(limit))
     ]);
 
+    const authenticatedUser = req.user;
+
     res.json({
         msg: 'GET (controller)',
         "total": totalAmount,
-        users
+        users,
+        authenticatedUser,
     });
 }
 
@@ -73,17 +76,20 @@ const deleteUser = async (req, res = response) => {
     //const user = await User.findByIdAndDelete(id);
 
     // soft delete
-    const user = await User.findByIdAndUpdate(id, {state : false});
+    const user = await User.findByIdAndUpdate(id, { state: false });
+
+    const authenticatedUser = req.user;
 
     res.json({
         msg: 'DELETE (controller)',
-        user
+        user,
+        authenticatedUser
     });
 }
 
 
 module.exports = {
-    getUser,
+    getUser, // this way we pass the reference and all params to the func
     postUser,
     putUser,
     deleteUser,

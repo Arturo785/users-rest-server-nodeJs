@@ -6,6 +6,8 @@ const { check } = require('express-validator');
 
 const { validateFields } = require('../middlewares/validator');
 const { roleValidator, emailValidator, userExistsValidator } = require('../helpers/dbValidators');
+const { validateJTW } = require('../middlewares/validateJWT');
+const { validateRole } = require('../middlewares/validateRoles');
 
 
 const router = Router();
@@ -13,7 +15,9 @@ const router = Router();
 //router lets us define our endpoints
 
 
-router.get('/', getUser);
+router.get('/', [
+    validateJTW,
+], getUser);
 
 // in order to catch routes of the path
 // second param can be middlewares to validate data
@@ -35,10 +39,12 @@ router.put('/:id', [
 ], putUser);
 
 router.delete('/:id', [
+    validateJTW,
+    validateRole('ADMIN_ROLE'),
     check('id', 'Not a valid id').isMongoId(),
     check('id').custom(userExistsValidator),
-    validateFields,
-], deleteUser);
+    validateFields, // this way we pass the reference and all params to the func
+], deleteUser);  // this way we pass the reference and all params to the func
 
 
 
